@@ -22,6 +22,15 @@ export class SlackManifestTools {
   }
 
   public async getAccessToken (): Promise<string> {
+    const res = await this.rotate()
+    return res.token
+  }
+
+  public async rotate (): Promise<{
+    ok: boolean,
+    token: string
+    refresh_token: string
+  }> {
     const body = {
       refresh_token: this.options.token
     }
@@ -39,7 +48,11 @@ export class SlackManifestTools {
       refresh_token: string
     }
 
-    return res.token
+    if (!res.ok) {
+      console.error(res)
+    }
+
+    return res
   }
 
   public async request (method: string, params: object = {}): Promise<any> {
@@ -78,6 +91,22 @@ export class SlackManifestTools {
     return await this.request('/apps.manifest.update', {
       manifest: await this.getManifest(),
       app_id: this.options.app_id
+    })
+  }
+
+  public async create (): Promise<{
+    'ok': boolean,
+    'app_id': string,
+    'credentials': {
+      'client_id': string
+      'client_secret': string
+      'verification_token': string
+      'signing_secret': string
+    },
+    'oauth_authorize_url': string
+  }> {
+    return await this.request('/apps.manifest.create', {
+      manifest: await this.getManifest()
     })
   }
 }

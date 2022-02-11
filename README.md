@@ -28,9 +28,13 @@ Options:
 **Validate manifest**
 
 > slack-manifest-tools -v -m ./manifest.json -t <token>
+ 
+**Create a new app from a manifest**
+
+> slack-manifest-tools -c -m ./manifest.json -t <token>
 
 
 ### Configuration
 
 1. Create an app configuration token for your user and workspace. https://api.slack.com/authentication/config-tokens
-2. Find your Slack app I
+2. Find your Slack app id.

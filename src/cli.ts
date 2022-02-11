@@ -7,8 +7,10 @@ interface CommanderOptions {
   manifest: string
   validate?: boolean
   update?: boolean
+  create?: boolean
   token: string
   app_id?: string
+  rotate?: boolean
 }
 
 (async () => {
@@ -19,6 +21,8 @@ interface CommanderOptions {
   program.option('-a, --app_id <app_id>', 'Slack app id. Required for manifest update.')
   program.option('-v, --validate', 'Validate manifest file.')
   program.option('-u, --update', 'Update Slack app manifest with provided manifest.')
+  program.option('-c, --create', 'Create a Slack app with provided manifest.')
+  program.option('-r, --rotate', 'Print new access and refresh tokens to stdout. token argument is required.')
 
   program.parse(process.argv)
 
@@ -57,6 +61,27 @@ interface CommanderOptions {
       console.log('manifest updated')
     } else {
       console.error('manifest update failed')
+      process.exit(1)
+    }
+  } else if (options.create) {
+    const res = await smt.create()
+
+    if (res.ok) {
+      console.log('app created from manifest')
+      console.log(res)
+    } else {
+      console.error('app creation failed')
+      console.log(res)
+      process.exit(1)
+    }
+  } else if (options.rotate) {
+    const res = await smt.rotate()
+
+    if (res.ok) {
+      console.log(res)
+    } else {
+      console.error('token generation failed')
+      console.log(res)
       process.exit(1)
     }
   }
