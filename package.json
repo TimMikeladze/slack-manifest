@@ -60,7 +60,7 @@
   },
   "dependencies": {
     "commander": "9.0.0",
-    "node-fetch": "^3.2.0",
-    "replace-in-file": "^6.3.2"
+    "node-fetch": "3.2.0",
+    "replace-in-file": "6.3.2"
   }
 }
