@@ -4,6 +4,7 @@ import fetch from 'node-fetch'
 export interface SlackManifestOptions {
   manifest: string;
   token: string
+  app_id?: string
 }
 
 const SLACK_API = 'https://slack.com/api'
@@ -67,5 +68,16 @@ export class SlackManifestTools {
     })
 
     return !!res?.ok
+  }
+
+  public async update (): Promise<{
+    'ok': boolean,
+    'app_id': string,
+    'permissions_updated': boolean
+  }> {
+    return await this.request('/apps.manifest.update', {
+      manifest: await this.getManifest(),
+      app_id: this.options.app_id
+    })
   }
 }
