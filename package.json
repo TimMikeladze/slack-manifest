@@ -1,5 +1,5 @@
 {
-  "name": "slack-manifest-sync",
+  "name": "slack-manifest-tools",
   "version": "0.0.1",
   "description": "Keep Slack app manifests in sync between dev, preview, and production environments",
   "author": "Tim Mikeladze <tim.mikeladze@gmail.com>",
@@ -10,17 +10,21 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/TimMikeladze/slack-manifest-sync.git"
+    "url": "https://github.com/TimMikeladze/slack-manifest-tools.git"
   },
   "license": "MIT",
   "files": [
     "./dist"
   ],
+  "type": "module",
   "source": "src/index.ts",
-  "types": "dist/index.d.ts",
-  "main": "dist/index.umd.js",
-  "module": "dist/index.module.js",
-  "exports": "./dist/index.modern.js",
+  "exports": {
+    "require": "./dist/index.cjs",
+    "default": "./dist/index.modern.js"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.module.js",
+  "unpkg": "./dist/index.umd.js",
   "bin": "./dist/cli.js",
   "scripts": {
     "dev": "microbundle watch src/{index,cli}.ts",
@@ -55,7 +59,10 @@
     "typescript": "4.5.5"
   },
   "dependencies": {
+    "@slack/web-api": "^6.6.0",
     "commander": "8.3.0",
-    "glob": "7.2.0"
+    "glob": "7.2.0",
+    "node-fetch": "^3.2.0",
+    "replace-in-file": "^6.3.2"
   }
 }

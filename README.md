@@ -1,10 +1,10 @@
-# slack-manifest-sync
+# slack-manifest-tools
 
 Slack Manifest Tools
 
 ## Getting Started
 
-> yarn add slack-manifest-sync --dev
+> yarn add slack-manifest-tools --dev
 
 ## Usage
 
@@ -12,5 +12,11 @@ Slack Manifest Tools
 Usage: cli [options]
 
 Options:
-  -h, --help             display help for command
+  -m, --manifest <manifest>  app manifest file
+  -v, --validate             validate app manifest file
+  -u, --update               update app manifest file
+  -h, --help                 display help for command
 ```
+
+1. Create an app configuration token for your user and workspace. https://api.slack.com/authentication/config-tokens
+2. 
