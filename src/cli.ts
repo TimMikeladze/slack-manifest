@@ -67,6 +67,7 @@ interface CommanderOptions {
       console.log('manifest updated')
     } else {
       console.error('manifest update failed')
+      console.log(res)
       process.exit(1)
     }
   } else if (options.create) {

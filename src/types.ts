@@ -23,41 +23,42 @@ export interface Manifest {
     }
     deploy_enabled?: boolean
     socket_mode_enabled?: boolean
-    features?: {
-      app_home?:{
-        home_tab_enabled?: boolean
-        messages_tab_enabled?: boolean
-        messages_tab_read_only_enabled?: boolean
-      }
-      bot_user?: {
-        display_name?: string
-        always_online?: boolean
-      }
-      shortcuts?: {
-        name: string
-        type: string
-        callback_id: string
-        description:string
-      }[]
-      slash_commands?: {
-        command: string
-        description: string
-        url?: string
-        usage_hint?: string
-        should_escape?: boolean
-      }[]
-      workflow_steps?: {
-        name: string
-        callback_id: string
-      }[]
-      unfurl_domain?: string[]
-      oauth_config?: {
-        redirect_urls?: string[]
-        scopes?: {
-          bot: string[]
-          user: string[]
-        }
-      }
+    org_deploy_enabled?: boolean
+  }
+  features?: {
+    app_home?: {
+      home_tab_enabled?: boolean
+      messages_tab_enabled?: boolean
+      messages_tab_read_only_enabled?: boolean
+    }
+    bot_user?: {
+      display_name?: string
+      always_online?: boolean
+    }
+    shortcuts?: {
+      name: string
+      type: string
+      callback_id: string
+      description: string
+    }[]
+    slash_commands?: {
+      command: string
+      description: string
+      url?: string
+      usage_hint?: string
+      should_escape?: boolean
+    }[]
+    workflow_steps?: {
+      name: string
+      callback_id: string
+    }[]
+    unfurl_domain?: string[]
+  }
+  oauth_config?: {
+    redirect_urls?: string[]
+    scopes?: {
+      bot?: string[]
+      user?: string[]
     }
   }
 }

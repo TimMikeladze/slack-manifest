@@ -1,5 +1,6 @@
 import { readFile } from 'fs/promises'
 import fetch from 'node-fetch'
+import { resolve } from 'path'
 
 export interface SlackManifestOptions {
   manifest: string;
@@ -21,15 +22,23 @@ export class SlackManifestTools {
   public async getManifest (): Promise<string> {
     const filePath = this.options.manifest
 
-    let data = await readFile(filePath, 'utf8')
+    const extension = filePath.split('.').pop()
 
-    if (this.options.environment) {
-      data = data.replace(/\${(.*?)\}/g, function (match, token) {
-        return process.env[token]
-      })
+    if (extension === 'ts' || extension === 'tsx') {
+      return (await import(resolve(filePath))).default.default
+    } else if (extension === 'json') {
+      let data = await readFile(filePath, 'utf8')
+
+      if (this.options.environment) {
+        data = data.replace(/\${(.*?)\}/g, function (match, token) {
+          return process.env[token]
+        })
+      }
+
+      return data
+    } else {
+      throw new Error(`Unsupported file extension: ${extension}`)
     }
-
-    return data
   }
 
   public async getAccessToken (): Promise<string> {

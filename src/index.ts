@@ -1,2 +1,2 @@
 export * from './SlackManifestTools'
-export * from './types'
+export { Manifest } from './types'
