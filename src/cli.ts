@@ -8,21 +8,25 @@ interface CommanderOptions {
   validate?: boolean
   update?: boolean
   create?: boolean
-  token: string
+  accessToken?: string
+  refreshToken?: string
   app_id?: string
   rotate?: boolean
+  environment?:boolean
 }
 
 (async () => {
   const program = new Command()
 
-  program.option('-m, --manifest <manifest>', 'Path to app manifest file. Required.')
-  program.option('-t, --token <token>', 'Slack app configuration refresh token. Required.')
   program.option('-a, --app_id <app_id>', 'Slack app id. Required for manifest update.')
-  program.option('-v, --validate', 'Validate manifest file.')
-  program.option('-u, --update', 'Update Slack app manifest with provided manifest.')
+  program.option('-at, --accessToken <accessToken>', 'Slack app configuration access token. Required if refresh token is not provided.')
   program.option('-c, --create', 'Create a Slack app with provided manifest.')
-  program.option('-r, --rotate', 'Print new access and refresh tokens to stdout. token argument is required.')
+  program.option('-e, --environment', 'Replace placeholders in manifest with environment variables.')
+  program.option('-m, --manifest <manifest>', 'Path to app manifest file. Required.')
+  program.option('-r, --rotate', 'Print new access and refresh tokens to stdout. refreshToken argument is required.')
+  program.option('-rt, --refreshToken <refreshToken>', 'Slack app configuration refresh token. Valid for only 12 hours. Required if access token is not provided.')
+  program.option('-u, --update', 'Update Slack app manifest with provided manifest.')
+  program.option('-v, --validate', 'Validate manifest file.')
 
   program.parse(process.argv)
 
@@ -33,15 +37,17 @@ interface CommanderOptions {
     process.exit(1)
   }
 
-  if (!options.token) {
-    console.error('slack app configuration token is required')
+  if (!options.accessToken && !options.refreshToken) {
+    console.error('slack app configuration access or refresh token is required')
     process.exit(1)
   }
 
   const smt = new SlackManifestTools({
     manifest: options.manifest,
-    token: options.token,
-    app_id: options.app_id
+    accessToken: options.accessToken,
+    refreshToken: options.refreshToken,
+    app_id: options.app_id,
+    environment: options.environment
   })
 
   if (options.validate) {

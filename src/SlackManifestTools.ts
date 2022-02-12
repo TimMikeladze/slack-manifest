@@ -3,8 +3,10 @@ import fetch from 'node-fetch'
 
 export interface SlackManifestOptions {
   manifest: string;
-  token: string
+  accessToken?: string
+  refreshToken?: string
   app_id?: string
+  environment?: boolean
 }
 
 const SLACK_API = 'https://slack.com/api'
@@ -18,10 +20,22 @@ export class SlackManifestTools {
 
   public async getManifest (): Promise<string> {
     const filePath = this.options.manifest
-    return await readFile(filePath, 'utf8')
+
+    let data = await readFile(filePath, 'utf8')
+
+    if (this.options.environment) {
+      data = data.replace(/\${(.*?)\}/g, function (match, token) {
+        return process.env[token]
+      })
+    }
+
+    return data
   }
 
   public async getAccessToken (): Promise<string> {
+    if (this.options.accessToken) {
+      return this.options.accessToken
+    }
     const res = await this.rotate()
     return res.token
   }
@@ -32,7 +46,7 @@ export class SlackManifestTools {
     refresh_token: string
   }> {
     const body = {
-      refresh_token: this.options.token
+      refresh_token: this.options.refreshToken
     }
 
     const res = await (await fetch(SLACK_API + '/tooling.tokens.rotate', {
