@@ -1,6 +1,6 @@
 # slack-manifest-tools
 
- Track slack app manifest files in git and deploy updates as part of your CI/CD pipeline. 
+Keep your Slack app manifest files in git and deploy updates as part of your CI/CD pipeline. 
  
 Useful for deploying a Slack app across multiple environments such as development, preview, and production while using a single manifest file.
 
