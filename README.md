@@ -53,6 +53,44 @@ APP_NAME="Example" slack-manifest -u -m ./manifest.json -at <accessToken> -a <ap
 }
 ```
 
+### Typesafe manifests with Typescript
+
+You can define the app manifest file as a Typescript module. This provides the benefit of type checking your manifest. 
+
+First install dependencies:
+
+```shell
+yarn install ts-node typescript --dev
+```
+
+Now create a Typescript file that exports the manifest. This file will be loaded during runtime and the default export will be used. You can use it to run additional code like loading env variables.
+
+```typescript
+try {
+  require('dotenv').config();
+} catch (err) {}
+
+import { Manifest } from 'slack-manifest/dist';
+
+const manifest: Manifest = {
+  display_information: {
+    name: process.env.SLACK_APP_NAME,
+    description: process.env.SLACK_APP_DESCRIPTION,
+    background_color: '#a34761',
+  },
+};
+
+export default manifest;
+```
+
+In order to run `slack-manifest` use `node --experimental-specifier-resolution=node --loader ts-node/esm node_modules/slack-manifest/dist/cli.modern.js`
+
+For example:
+
+```shell
+node --experimental-specifier-resolution=node --loader ts-node/esm node_modules/slack-manifest/dist/cli.modern.js -u -m ./manifest.ts -at <accessToken> -a <app_id>
+```
+
 ### Validating app manifest
 
 A manifest file can be validated using the `-v` flag. The manifest file is automatically before any write operations.
