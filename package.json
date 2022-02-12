@@ -1,6 +1,6 @@
 {
   "name": "slack-manifest-tools",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Keep your Slack app manifest files in git and deploy updates as part of your CI/CD pipeline. Useful for deploying a Slack app across multiple environments such as development, preview, and production while using a single manifest file.",
   "author": "Tim Mikeladze <tim.mikeladze@gmail.com>",
   "keywords": [
@@ -19,13 +19,13 @@
   "type": "module",
   "source": "src/index.ts",
   "exports": {
-    "require": "./dist/index.cjs",
-    "default": "./dist/index.modern.js"
+    "require": "dist/index.cjs",
+    "default": "dist/index.modern.js"
   },
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.module.js",
-  "unpkg": "./dist/index.umd.js",
-  "bin": "./dist/cli.js",
+  "main": "dist/index.cjs",
+  "module": "dist/index.module.js",
+  "unpkg": "dist/index.umd.js",
+  "bin": "dist/cli.modern.js",
   "scripts": {
     "dev": "microbundle watch src/{index,cli}.ts",
     "build": "microbundle src/{index,cli}.ts",
