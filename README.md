@@ -1,4 +1,4 @@
-# slack-manifest-tools
+# slack-manifest
 
 Keep your Slack app manifest files in git and deploy updates as part of your CI/CD pipeline. 
  
@@ -6,7 +6,7 @@ Useful for deploying a Slack app across multiple environments such as developmen
 
 ## Installation
 
-> yarn add slack-manifest-tools --dev
+> yarn add slack-manifest --dev
 
 ## Usage
 
@@ -31,7 +31,7 @@ Options:
 To update the manifest of an already existing Slack app run the following command.
 
 ```shell
-slack-manifest-tools -u -m ./manifest.json -at <accessToken> -a <app_id>
+slack-manifest -u -m ./manifest.json -at <accessToken> -a <app_id>
 ```
 
 When developing a Slack app it's useful to have multiple apps representing different environments such as development, preview, and production. To simplify the process of keeping your manifest file in sync across multiple apps, you can use the `-e` flag to replace placeholders in the manifest with environment variables.
@@ -39,7 +39,7 @@ When developing a Slack app it's useful to have multiple apps representing diffe
 For example in the snippet of the manifest file below, ${APP_NAME} and ${APP_DESCRIPTION} are placeholders that will be replaced with environment variables.
 
 ```shell
-APP_NAME="Example" slack-manifest-tools -u -m ./manifest.json -at <accessToken> -a <app_id>
+APP_NAME="Example" slack-manifest -u -m ./manifest.json -at <accessToken> -a <app_id>
 ```
 
 ```json
@@ -58,7 +58,7 @@ APP_NAME="Example" slack-manifest-tools -u -m ./manifest.json -at <accessToken> 
 A manifest file can be validated using the `-v` flag. The manifest file is automatically before any write operations.
 
 ```shell
-slack-manifest-tools -v -m ./manifest.json -at <accessToken>
+slack-manifest -v -m ./manifest.json -at <accessToken>
 ```
 
 ### Create a new app from a manifest
@@ -66,7 +66,7 @@ slack-manifest-tools -v -m ./manifest.json -at <accessToken>
 This will create a new Slack app with the provided manifest and returns the app id, access and refresh tokens to the console.
 
 ```shell
-slack-manifest-tools -c -m ./manifest.json -at <accessToken>
+slack-manifest -c -m ./manifest.json -at <accessToken>
 ```
 
 ### Rotate access and refresh token
@@ -74,7 +74,7 @@ slack-manifest-tools -c -m ./manifest.json -at <accessToken>
 Fetch new Slack configuration access and refresh tokens. The results are printed to stdout. The refresh token is valid for only 12 hours.
 
 ```shell
-slack-manifest-tools -c -m ./manifest.json -rt <refreshToken>
+slack-manifest -c -m ./manifest.json -rt <refreshToken>
 ```
 
 ### Configuration
