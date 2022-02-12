@@ -3,7 +3,7 @@ import fetch from 'node-fetch'
 import { resolve } from 'path'
 
 export interface SlackManifestOptions {
-  manifest: string;
+  manifest?: string;
   accessToken?: string
   refreshToken?: string
   app_id?: string
@@ -130,6 +130,15 @@ export class SlackManifestTools {
   }> {
     return await this.request('/apps.manifest.create', {
       manifest: await this.getManifest()
+    })
+  }
+
+  public async delete (): Promise<{
+    ok: boolean
+    error?: string
+  }> {
+    return await this.request('/apps.manifest.delete', {
+      app_id: this.options.app_id
     })
   }
 }

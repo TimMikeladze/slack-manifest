@@ -17,6 +17,7 @@ Options:
   -a, --app_id <app_id>               Slack app id. Required for manifest update.
   -at, --accessToken <accessToken>    Slack app configuration access token. Required if refresh token is not provided.
   -c, --create                        Create a Slack app with provided manifest.
+  -d, --delete                        Delete a Slack app. app_id argument is required.
   -e, --environment                   Replace placeholders in manifest with environment variables.
   -m, --manifest <manifest>           Path to app manifest file. Required.
   -r, --rotate                        Print new access and refresh tokens to stdout. refreshToken argument is required.
@@ -93,7 +94,7 @@ node --experimental-specifier-resolution=node --loader ts-node/esm node_modules/
 
 ### Validating app manifest
 
-A manifest file can be validated using the `-v` flag. The manifest file is automatically before any write operations.
+A manifest file can be validated using the `-v` flag. The manifest file is automatically validated before a create or update operation.
 
 ```shell
 slack-manifest -v -m ./manifest.json -at <accessToken>
@@ -105,6 +106,14 @@ This will create a new Slack app with the provided manifest and returns the app 
 
 ```shell
 slack-manifest -c -m ./manifest.json -at <accessToken>
+```
+
+### Delete an existing app
+
+This will permanently delete an existing Slack app.
+
+```shell
+slack-manifest -d -at <accessToken> -a <app_id>
 ```
 
 ### Rotate access and refresh token

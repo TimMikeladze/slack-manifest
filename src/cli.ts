@@ -8,6 +8,7 @@ interface CommanderOptions {
   validate?: boolean
   update?: boolean
   create?: boolean
+  delete?: boolean
   accessToken?: string
   refreshToken?: string
   app_id?: string
@@ -21,6 +22,7 @@ interface CommanderOptions {
   program.option('-a, --app_id <app_id>', 'Slack app id. Required for manifest update.')
   program.option('-at, --accessToken <accessToken>', 'Slack app configuration access token. Required if refresh token is not provided.')
   program.option('-c, --create', 'Create a Slack app with provided manifest.')
+  program.option('-d, --delete', 'Delete a Slack app. app_id argument is required.')
   program.option('-e, --environment', 'Replace placeholders in manifest with environment variables.')
   program.option('-m, --manifest <manifest>', 'Path to app manifest file. Required.')
   program.option('-r, --rotate', 'Print new access and refresh tokens to stdout. refreshToken argument is required.')
@@ -32,7 +34,7 @@ interface CommanderOptions {
 
   const options: CommanderOptions = program.opts()
 
-  if (!options.manifest) {
+  if (!options.manifest && !options.delete) {
     console.error('manifest file is required')
     process.exit(1)
   }
@@ -74,7 +76,6 @@ interface CommanderOptions {
     const res = await smt.create()
 
     if (res.ok) {
-      console.log('app created from manifest')
       console.log(res)
     } else {
       console.error('app creation failed')
@@ -88,6 +89,16 @@ interface CommanderOptions {
       console.log(res)
     } else {
       console.error('token generation failed')
+      console.log(res)
+      process.exit(1)
+    }
+  } else if (options.delete) {
+    const res = await smt.delete()
+
+    if (res.ok) {
+      console.log('app deleted')
+    } else {
+      console.error('app deletion failed')
       console.log(res)
       process.exit(1)
     }
