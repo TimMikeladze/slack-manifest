@@ -27,20 +27,19 @@ Options:
 
 ### Validate app manifest
 
-> slack-manifest-tools -v -m ./manifest.json -t <token>
-
+> slack-manifest-tools -v -m ./manifest.json -at <accessToken>
 
 ### Update app manifest and environment variables
 
 To update the manifest of an already existing Slack app run the following command.
 
-> slack-manifest-tools -u -m ./manifest.json -t <token> -a <app_id>
+> slack-manifest-tools -u -m ./manifest.json -at <accessToken> -a <app_id>
 
 When developing a Slack app it's useful to have multiple apps representing different environments such as development, preview, and production. To simplify the process of keeping your manifest file in sync across multiple apps, you can use the `-e` flag to replace placeholders in the manifest with environment variables.
 
 For example in the snippet of the manifest file below, ${APP_NAME} and ${APP_DESCRIPTION} are placeholders that will be replaced with environment variables.
 
-> APP_NAME="Example" slack-manifest-tools -u -m ./manifest.json -t <token> -a <app_id>
+> APP_NAME="Example" slack-manifest-tools -u -m ./manifest.json -at <accessToken> -a <app_id>
 
 ```json
 {
@@ -55,7 +54,11 @@ For example in the snippet of the manifest file below, ${APP_NAME} and ${APP_DES
 
 ### Create a new app from a manifest
 
-> slack-manifest-tools -c -m ./manifest.json -t <token>
+> slack-manifest-tools -c -m ./manifest.json -at <accessToken>
+
+### Rotate access and refresh token
+
+> slack-manifest-tools -c -m ./manifest.json -rt <refreshToken>
 
 ### Configuration
 
