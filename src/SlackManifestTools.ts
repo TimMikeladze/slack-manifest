@@ -25,7 +25,7 @@ export class SlackManifestTools {
     const extension = filePath.split('.').pop()
 
     if (extension === 'ts' || extension === 'tsx') {
-      return (await import(resolve(filePath))).default.default
+      return JSON.stringify((await import(resolve(filePath))).default.default)
     } else if (extension === 'json') {
       let data = await readFile(filePath, 'utf8')
 
