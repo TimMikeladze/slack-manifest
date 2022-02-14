@@ -1,6 +1,6 @@
 {
   "name": "slack-manifest",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "CLI tools for interacting with a Slack App Manifest. Keep a manifest in your codebase as json file or typescript object and use slack-manifest to create, validate or update your Slack App as part of a CI/CD pipeline. Also useful for speeding up local development of Slack Apps.",
   "author": "Tim Mikeladze <tim.mikeladze@gmail.com>",
   "keywords": [
