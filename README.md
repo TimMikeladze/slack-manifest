@@ -71,7 +71,7 @@ try {
   require('dotenv').config();
 } catch (err) {}
 
-import { Manifest } from 'slack-manifest/dist';
+import { Manifest } from 'slack-manifest';
 
 const manifest: Manifest = {
   display_information: {

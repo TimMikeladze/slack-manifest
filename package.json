@@ -1,12 +1,14 @@
 {
   "name": "slack-manifest",
-  "version": "0.0.4",
-  "description": "Keep your Slack app manifest files in git and deploy updates as part of your CI/CD pipeline. Useful for deploying a Slack app across multiple environments such as development, preview, and production while using a single manifest file.",
+  "version": "0.0.5",
+  "description": "CLI tools for interacting with a Slack App Manifest. Keep a manifest in your codebase as json file or typescript object and use slack-manifest to create, validate or update your Slack App as part of a CI/CD pipeline. Also useful for speeding up local development of Slack Apps.",
   "author": "Tim Mikeladze <tim.mikeladze@gmail.com>",
   "keywords": [
     "slack",
     "manifest",
-    "slack app"
+    "slack app",
+    "slack app manifest",
+    "slack config"
   ],
   "repository": {
     "type": "git",
@@ -26,6 +28,7 @@
   "module": "dist/index.module.js",
   "unpkg": "dist/index.umd.js",
   "bin": "dist/cli.modern.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "dev": "microbundle watch src/{index,cli}.ts",
     "build": "microbundle src/{index,cli}.ts",
