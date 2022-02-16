@@ -1,8 +1,8 @@
 # slack-manifest
 
-Keep your Slack app manifest files in git and deploy updates as part of your CI/CD pipeline. 
- 
-Useful for deploying a Slack app across multiple environments such as development, preview, and production while using a single manifest file.
+CLI tools for interacting with a Slack App Manifest. Keep a manifest in your codebase as json file or typescript object and use slack-manifest to create, validate or update your Slack App as part of a CI/CD pipeline. 
+
+Also useful for speeding up local development of Slack Apps.
 
 ## Installation
 
