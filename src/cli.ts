@@ -13,7 +13,7 @@ interface CommanderOptions {
   refreshToken?: string
   app_id?: string
   rotate?: boolean
-  environment?:boolean
+  environment?: boolean
 }
 
 (async () => {
@@ -69,27 +69,27 @@ interface CommanderOptions {
       console.log('manifest updated')
     } else {
       console.error('manifest update failed')
-      console.log(res)
+      console.log(JSON.stringify(res))
       process.exit(1)
     }
   } else if (options.create) {
     const res = await smt.create()
 
     if (res.ok) {
-      console.log(res)
+      console.log(JSON.stringify(res))
     } else {
       console.error('app creation failed')
-      console.log(res)
+      console.log(JSON.stringify(res))
       process.exit(1)
     }
   } else if (options.rotate) {
     const res = await smt.rotate()
 
     if (res.ok) {
-      console.log(res)
+      console.log(JSON.stringify(res))
     } else {
       console.error('token generation failed')
-      console.log(res)
+      console.log(JSON.stringify(res))
       process.exit(1)
     }
   } else if (options.delete) {
@@ -99,7 +99,7 @@ interface CommanderOptions {
       console.log('app deleted')
     } else {
       console.error('app deletion failed')
-      console.log(res)
+      console.log(JSON.stringify(res))
       process.exit(1)
     }
   }
